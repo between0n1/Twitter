@@ -8,16 +8,27 @@
 
 import UIKit
 
-class TweetViewController: UIViewController {
+class TweetViewController: UIViewController, UITextViewDelegate {
 
+    @IBOutlet weak var tweetsize: UILabel!
+    @IBOutlet weak var tweetTextView: UITextView!
+    let COMMENT_LIMIT = 280
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tweetTextView.becomeFirstResponder()
-
+        tweetTextView.delegate = self
+        
         // Do any additional setup after loading the view.
     }
     
-    @IBOutlet weak var tweetTextView: UITextView!
+    func textViewDidChange(_ textView: UITextView) {
+        tweetsize.text = String(COMMENT_LIMIT - tweetTextView.text.count)
+    }
+        
+
+    
     @IBAction func cancel(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }

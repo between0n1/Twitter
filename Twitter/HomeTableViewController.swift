@@ -26,26 +26,27 @@ class HomeTableViewController: UITableViewController {
         super.viewDidDisappear(animated)
         self.loadTweets()
     }
+
     
     @objc func loadTweets(){
-        
-         numberOfTweet = 20
-        
-        let myUrl = "https://api.twitter.com/1.1/statuses/home_timeline.json"
-        let myParams = ["count": numberOfTweet]
-        
-        TwitterAPICaller.client?.getDictionariesRequest(url: myUrl, parameters: myParams, success: { (tweets: [NSDictionary]) in
-            
-            self.tweetArray.removeAll()
-            for tweet in tweets{
-                self.tweetArray.append(tweet)
-            }
-            self.tableView.reloadData()
-            self.myrefreshControl.endRefreshing()
-        }, failure: { (Error) in
-            print("Could not retreive tweets")
-        })
-    }
+         
+          numberOfTweet = 20
+         
+         let myUrl = "https://api.twitter.com/1.1/statuses/home_timeline.json"
+         let myParams = ["count": numberOfTweet]
+         
+         TwitterAPICaller.client?.getDictionariesRequest(url: myUrl, parameters: myParams, success: { (tweets: [NSDictionary]) in
+             
+             self.tweetArray.removeAll()
+             for tweet in tweets{
+                 self.tweetArray.append(tweet)
+             }
+             self.tableView.reloadData()
+             self.myrefreshControl.endRefreshing()
+         }, failure: { (Error) in
+             print("Could not retreive tweets")
+         })
+     }
     
     func loadmoreTweets(){
         let myUrl = "https://api.twitter.com/1.1/statuses/home_timeline.json"

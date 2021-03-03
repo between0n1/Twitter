@@ -178,6 +178,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="280" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gUv-Lt-jWr">
+                                <rect key="frame" x="389" y="198" width="28" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="X6B-dx-dHP"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -203,6 +210,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tweetTextView" destination="9yf-e1-69f" id="Qa8-J5-BLl"/>
+                        <outlet property="tweetsize" destination="gUv-Lt-jWr" id="PLl-9p-ehL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WBR-JY-nnc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
