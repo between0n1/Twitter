@@ -11,6 +11,8 @@ class HomeTableViewController: UITableViewController {
     
     var tweetArray = [NSDictionary]()
     var numberOfTweet: Int!
+    var indexPath_for_profile: IndexPath!
+
     
     let myrefreshControl = UIRefreshControl()
     
@@ -44,7 +46,7 @@ class HomeTableViewController: UITableViewController {
              self.tableView.reloadData()
              self.myrefreshControl.endRefreshing()
          }, failure: { (Error) in
-             print("Could not retreive tweets")
+             print("Could not retreive tweets \(Error)")
          })
      }
     
@@ -60,7 +62,7 @@ class HomeTableViewController: UITableViewController {
             }
             self.tableView.reloadData()
         }, failure: { (Error) in
-            print("Could not retreive tweets")
+            print("Could not retreive tweets \(Error)")
         })
     }
     
@@ -81,6 +83,8 @@ class HomeTableViewController: UITableViewController {
     }
     // MARK: - Table view data source
     
+    
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "tweetCell", for: indexPath) as! TweetCellTableViewCell
         let user = tweetArray[indexPath.row]["user"] as! NSDictionary
@@ -94,11 +98,33 @@ class HomeTableViewController: UITableViewController {
             cell.profileImageView.image = UIImage(data: imageData)
         }
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.openProfile(_:)))
+        cell.profileImageView.addGestureRecognizer(tapGesture)
+
         cell.setFavorite(tweetArray[indexPath.row]["favorited"] as! Bool)
         cell.tweetId = tweetArray[indexPath.row]["id"] as! Int
         cell.setRetweeted(tweetArray[indexPath.row]["retweeted"] as! Bool)
-        
         return cell
+    }
+    
+    @objc func openProfile(_ sender: UITapGestureRecognizer){
+        let point = sender.view
+        let mainCell = point?.superview
+        let main = mainCell?.superview
+        let cell: TweetCellTableViewCell = main as! TweetCellTableViewCell
+        indexPath_for_profile = tableView.indexPath(for: cell)
+        self.performSegue(withIdentifier: "goToProfile", sender: self)
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToProfile" {
+            let vc = segue.destination as! UINavigationController
+            let svc = vc.topViewController as! ProfileViewController
+        // to pass the indexpath of the selected image.
+            svc.user = tweetArray[indexPath_for_profile.row]["user"] as! NSDictionary
+            
+        }
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
